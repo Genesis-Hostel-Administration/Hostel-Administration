@@ -36,6 +36,7 @@ public:
     }
     void loginRector()
     {
+        int t = 0;
         int cnt = 0;
         int c;
         string userIDR, password, idR, passR;
@@ -71,8 +72,22 @@ public:
         else
         {
             cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
+            cout<<  "\n\t| Type 1 to Try Again           |\n";
+            cout<<  "\n\t| Type 2 to return to main menu |\n";
+            cout<<  "\t    Enter your details --> ";
+            cin >> t;
         }
-        // firstpage();
+        cin >> t;
+        switch(t){
+            case 1:
+                loginRector();
+                break;
+            case 2:
+                firstpage();
+                break;
+            case 3:
+                cout<<"  |Invalid number!!               |\n";
+        }
     }
 
     void registerRector()
@@ -186,6 +201,7 @@ class student{
     }
     void loginStudent()
     {
+        int t = 0;
         int cnt = 0;
         int c;
         string userIDR, password, idR, passR;
@@ -202,9 +218,9 @@ class student{
             c = getch();
         }
 
-        ifstream rectorcreds("students.txt");
+        ifstream studentcreds("students.txt");
 
-        while (rectorcreds >> idR >> passR)
+        while (studentcreds >> idR >> passR)
         {
             if (idR == userIDR and passR == password)
             {
@@ -212,7 +228,7 @@ class student{
                 system("cls");
             }
         }
-        rectorcreds.close();
+        studentcreds.close();
 
         if (cnt)
         {
@@ -221,8 +237,22 @@ class student{
         else
         {
             cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
+            cout<<  "\n\t| Type 1 to Try Again           |\n";
+            cout<<  "\n\t| Type 2 to return to main menu |\n";
+            cout<<  "      Enter your details --> ";
+            cin >> t;
         }
-        // firstpage();
+        cin >> t;
+        switch(t){
+            case 1:
+                loginStudent();
+                break;
+            case 2:
+                Studentpage();
+                break;
+            case 3:
+                cout<<" |Invalid number!!               |\n";
+        }
     }
     void registerStudent()
     {
@@ -306,6 +336,173 @@ class student{
 
 };
 
+class Guard{
+    public:
+    void GuardPage()
+    {
+        system("cls");
+        int r;
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t| Press 1 for GUARD LOGIN        |\n";
+        cout << "\t| Press 2 for GUARD REGISTRATION |\n";
+        cout << "\t| Press 3 for FORGOT  PASSWORD   |\n\n";
+        cout << "Enter your choice --> ";
+        cin >> r;
+
+        switch (r)
+        {
+        case 1:
+            loginGuard();
+            break;
+        case 2:
+            registerGuard();
+            break;
+        default:
+            forgot();
+            break;
+        }
+    }
+    void loginGuard()
+    {
+        int t=0;
+        int cnt = 0;
+        int c;
+        string GuserID, Gpassword, Gid, Gpass;
+        system("cls");
+        cout << "\n\n\t\t Please enter your Credentials : \n";
+        cout << "\t\t USERNAME --> ";
+        cin >> GuserID;
+        cout << "\t\t PASSWORD --> ";
+        c = getch();
+        while (c != 13)
+        {
+            Gpassword.push_back(c);
+            cout << "*";
+            c = getch();
+        }
+
+        ifstream guardcreds("guards.txt");
+
+        while (guardcreds >> Gid >> Gpass)
+        {
+            if (Gid == GuserID and Gpass == Gpassword)
+            {
+                cnt++;
+                system("cls");
+            }
+        }
+        guardcreds.close();
+
+        if (cnt)
+        {
+            cout << "\t" << GuserID<< "\n\tYour LOGIN is successfull!";
+            getch();
+        }
+        else
+        {
+            cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
+            cout<<  "\n\t| Type 1 to Try Again           |\n";
+            cout<<  "\t  | Type 2 to return to main menu |\n";
+            cout<<  "\t    Enter your details --> ";
+            cin >> t;
+        }
+        
+        switch(t){
+            case 1:
+                loginGuard();
+                break;
+            case 2:
+                GuardPage();
+                break;
+            case 3:
+                cout<<"  |Invalid number!!               |\n";
+        }
+        
+    }
+    void registerGuard()
+    {
+        string Guserid, Gpassword, Gid, Gpass;
+        int c;
+        system("cls");
+        cout << "\t\t USERNAME --> ";
+        cin >> Guserid;
+        cout << "\t\t PASSWORD --> ";
+        c = getch();
+        while (c != 13)
+        {
+            Gpassword.push_back(c);
+            cout << "*";
+            c = getch();
+        }
+        ofstream guardcreds("guards.txt", ios::app);
+        guardcreds << "\n"
+                    << Guserid << " " << Gpassword;
+        system("cls");
+        cout << "\n\n\t\t Registration was successfull!! \n";
+        guardcreds.close();
+        GuardPage();
+    }
+
+    void forgot()
+    {
+        int option;
+        system("cls");
+        cout<<"\t\t\tForgot password? Chill! We are here\n\n";
+        cout<<"| Press 1 to search your id by username |"<<endl;
+        cout<<"| Press 2 to go back to the main menu   |\n "<<endl;
+        cout<<"  Enter your choice -->";
+        cin >> option;
+
+        switch(option)
+        {
+            case 1:
+            {
+                int count = 0;
+                string GuserId,GId,Gpass;
+                cout<<"\n\t\t\tEnter the username you remember: ";
+                cin >> GuserId;
+
+                ifstream guardcreds("guards.txt",ios::app);
+                while(guardcreds>>GId>>Gpass)
+                {
+                    if(GId  == GuserId)
+                    {
+                        count = 1;
+                        break;
+                    }
+                }
+                
+                guardcreds.close();
+                
+                if(count == 1)
+                {
+                    cout<<"\n\n Your account is found! \n";
+                    cout<<"\n\n Your password is : "<<Gpass;
+                    getch();
+                    main();
+                }
+                else{
+                    cout<<"\n\t Sorry! Your account is not found: \n";
+                    getch();
+                    main();
+                }
+                break;
+            }
+
+            case 2:
+            {
+                main();
+            }
+
+            default:
+                cout<<"\t\t\t Wrong choice ! Please try again "<<endl;
+        }
+    }
+
+};
+
 int main()
 {
     system("cls");
@@ -326,6 +523,10 @@ int main()
         R.firstpage();
         break;
 
+    case 2:
+        Guard G;
+        G.GuardPage();
+
     case 3:
         student S;
         S.Studentpage();
@@ -333,6 +534,5 @@ int main()
     default:
         break;
     }
-
     return 0;
 }
