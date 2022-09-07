@@ -30,6 +30,7 @@ public:
             registerRector();
             break;
         default:
+            forgot();
             break;
         }
     }
@@ -89,13 +90,70 @@ public:
             cout << "*";
             c = getch();
         }
-        ofstream rectorcreds("Rectors.txt ", ios::app);
+        ofstream rectorcreds("Rectors.txt", ios::app);
         rectorcreds << "\n"
                     << ruseridR << " " << rpasswordR;
         system("cls");
         cout << "\n\n\t\t Registration was successfull!! \n";
         rectorcreds.close();
         firstpage();
+    }
+
+    void forgot()
+    {
+        int option;
+        system("cls");
+        cout<<"\t\t\tForgot password? Chill! We are here\n\n";
+        cout<<"| Press 1 to search your id by username |"<<endl;
+        cout<<"| Press 2 to go back to the main menu   |\n "<<endl;
+        cout<<"  Enter your choice -->";
+        cin >> option;
+
+        switch(option)
+        {
+            case 1:
+            {
+                int count = 0;
+                string suserId,sId,spass;
+                cout<<"\n\t\t\tEnter the username you remember: ";
+                cin >> suserId;
+
+                ifstream rectorcreds("Rectors.txt",ios::app);
+                while(rectorcreds>>sId>>spass)
+                {
+                    if(sId  == suserId)
+                    {
+                        count = 1;
+                        break;
+                    }
+                }
+                
+                rectorcreds.close();
+                
+                if(count == 1)
+                {
+                    cout<<"\n\n Your account is found! \n";
+                    cout<<"\n\n Your password is : "<<spass;
+                    getch();
+                    main();
+                }
+                else{
+                    cout<<"\n\t Sorry! Your account is not found: \n";
+                    getch();
+                    main();
+                }
+                break;
+            }
+
+            case 2:
+            {
+                main();
+            }
+
+            default:
+                cout<<"\t\t\t Wrong choice ! Please try again "<<endl;
+
+        }
     }
 };
 
