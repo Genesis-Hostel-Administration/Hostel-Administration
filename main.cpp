@@ -68,25 +68,27 @@ public:
         if (cnt)
         {
             cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!";
+            rectorAfterLogin();
         }
         else
         {
             cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
-            cout<<  "\n\t| Type 1 to Try Again           |\n";
-            cout<<  "\n\t| Type 2 to return to main menu |\n";
-            cout<<  "\t    Enter your details --> ";
+            cout << "\n\t| Type 1 to Try Again           |\n";
+            cout << "\n\t| Type 2 to return to main menu |\n";
+            cout << "\t    Enter your details --> ";
             cin >> t;
         }
         cin >> t;
-        switch(t){
-            case 1:
-                loginRector();
-                break;
-            case 2:
-                firstpage();
-                break;
-            case 3:
-                cout<<"  |Invalid number!!               |\n";
+        switch (t)
+        {
+        case 1:
+            loginRector();
+            break;
+        case 2:
+            firstpage();
+            break;
+        case 3:
+            cout << "  |Invalid number!!               |\n";
         }
     }
 
@@ -118,61 +120,106 @@ public:
     {
         int option;
         system("cls");
-        cout<<"\t\t\tForgot password? Chill! We are here\n\n";
-        cout<<"| Press 1 to search your id by username |"<<endl;
-        cout<<"| Press 2 to go back to the main menu   |\n "<<endl;
-        cout<<"  Enter your choice -->";
+        cout << "\t\t\tForgot password? Chill! We are here\n\n";
+        cout << "| Press 1 to search your id by username |" << endl;
+        cout << "| Press 2 to go back to the main menu   |\n " << endl;
+        cout << "  Enter your choice -->";
         cin >> option;
 
-        switch(option)
+        switch (option)
         {
-            case 1:
-            {
-                int count = 0;
-                string suserId,sId,spass;
-                cout<<"\n\t\t\tEnter the username you remember: ";
-                cin >> suserId;
+        case 1:
+        {
+            int count = 0;
+            string suserId, sId, spass;
+            cout << "\n\t\t\tEnter the username you remember: ";
+            cin >> suserId;
 
-                ifstream rectorcreds("Rectors.txt",ios::app);
-                while(rectorcreds>>sId>>spass)
+            ifstream rectorcreds("Rectors.txt", ios::app);
+            while (rectorcreds >> sId >> spass)
+            {
+                if (sId == suserId)
                 {
-                    if(sId  == suserId)
-                    {
-                        count = 1;
-                        break;
-                    }
+                    count = 1;
+                    break;
                 }
+            }
+
+            rectorcreds.close();
+
+            if (count == 1)
+            {
+                cout << "\n\n Your account is found! \n";
+                cout << "\n\n Your password is : " << spass;
+                getch();
+                main();
+            }
+            else
+            {
+                cout << "\n\t Sorry! Your account is not found: \n";
+                getch();
+                main();
+            }
+            break;
+        }
+
+        case 2:
+        {
+            main();
+        }
+
+        default:
+            cout << "\t\t\t Wrong choice ! Please try again " << endl;
+        }
+    }
+    void rectorAfterLogin()
+    {
+        int r,s;
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t\t\t\t\t            RECTOR MENU                                        \n\n";
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t| Press 1 to Check Payments Received |\n";
+        cout << "\t| Press 2 to HOSTEL APPLICATIONS     |\n";
+        cout << "\t| Press 3 to CHECK GRIEVANCES        |\n\n";
+        cout << "Enter your choice --> ";
+        cin >> r;
+
+        switch (r)
+        {
+        case 3:
+            ifstream grie;
+            string line;
+
+            grie.open("Grievances.txt");
+            while(getline(grie,line)){
+                cout<<line<<endl<<endl;;
+            }
+            cout << "\t| Press 1 If Grievances are solved  |\n";
+            cout << "\t| Press 2 If Not solved             |\n";
+            cin >> s;
+            fstream fil;
+            switch(s)
+            {
+                case 1:
                 
-                rectorcreds.close();
-                
-                if(count == 1)
-                {
-                    cout<<"\n\n Your account is found! \n";
-                    cout<<"\n\n Your password is : "<<spass;
-                    getch();
-                    main();
-                }
-                else{
-                    cout<<"\n\t Sorry! Your account is not found: \n";
-                    getch();
-                    main();
-                }
+                fil.open("Grievances.txt",ios::trunc);
+                fil.close();
+                break;
+
+                case 2:
                 break;
             }
 
-            case 2:
-            {
-                main();
-            }
 
-            default:
-                cout<<"\t\t\t Wrong choice ! Please try again "<<endl;
+
+        break;
         }
     }
 };
 
-class student{
-    public:
+class student
+{
+public:
     void Studentpage()
     {
         system("cls");
@@ -201,6 +248,7 @@ class student{
     }
     void loginStudent()
     {
+       
         int t = 0;
         int cnt = 0;
         int c;
@@ -233,25 +281,72 @@ class student{
         if (cnt)
         {
             cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!";
+            
+            int r;
+            cout << "\t\t\t--------------------------------------------------------------------\n\n";
+            cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
+            cout << "\t\t\t--------------------------------------------------------------------\n\n";
+            cout << "\t| Press 1 to EDIT PROFILE          |\n";
+            cout << "\t| Press 2 to SEE NOTICES           |\n";
+            cout << "\t| Press 3 to PUT GRIEVANCES        |\n\n";
+            cout << "Enter your choice --> ";
+            cin >> r;
+
+            switch (r)
+            {
+            case 3:
+            {
+                string hostel_no;
+                int room_no;
+                string grievance;
+                cout << "Enter your Hostel Dormentory : ";
+                cin >> hostel_no;
+                cout << "Enter your Room No. : ";
+                cin >> room_no;
+
+                cout << "Enter your Grievance/Complaint : " << endl;
+                // getline(cin,grievance);
+                char c;
+                c = getch();
+                while (c != 13)
+                {
+                    if (c == 8)
+                    {
+                        grievance.pop_back();
+                        c = getch();
+                        continue;
+                    }
+                    grievance.push_back(c);
+                    cout << c;
+                    c = getch();
+                }
+
+                ofstream grievances("Grievances.txt", ios::app);
+                grievances << "\t\tUser Id :" << userIDR << " ; Hostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
+
+                cout << "\nYour Grievance is successfully submitted!";
+            }
+            }
         }
         else
         {
             cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
-            cout<<  "\n\t| Type 1 to Try Again           |\n";
-            cout<<  "\n\t| Type 2 to return to main menu |\n";
-            cout<<  "      Enter your details --> ";
+            cout << "\n\t| Type 1 to Try Again           |\n";
+            cout << "\n\t| Type 2 to return to main menu |\n";
+            cout << "      Enter your details --> ";
             cin >> t;
         }
         cin >> t;
-        switch(t){
-            case 1:
-                loginStudent();
-                break;
-            case 2:
-                Studentpage();
-                break;
-            case 3:
-                cout<<" |Invalid number!!               |\n";
+        switch (t)
+        {
+        case 1:
+            loginStudent();
+            break;
+        case 2:
+            Studentpage();
+            break;
+        case 3:
+            cout << " |Invalid number!!               |\n";
         }
     }
     void registerStudent()
@@ -282,62 +377,63 @@ class student{
     {
         int option;
         system("cls");
-        cout<<"\t\t\tForgot password? Chill! We are here\n\n";
-        cout<<"| Press 1 to search your id by username |"<<endl;
-        cout<<"| Press 2 to go back to the main menu   |\n "<<endl;
-        cout<<"  Enter your choice -->";
+        cout << "\t\t\tForgot password? Chill! We are here\n\n";
+        cout << "| Press 1 to search your id by username |" << endl;
+        cout << "| Press 2 to go back to the main menu   |\n " << endl;
+        cout << "  Enter your choice -->";
         cin >> option;
 
-        switch(option)
+        switch (option)
         {
-            case 1:
-            {
-                int count = 0;
-                string SuserId,SId,Spass;
-                cout<<"\n\t\t\tEnter the username you remember: ";
-                cin >> SuserId;
+        case 1:
+        {
+            int count = 0;
+            string SuserId, SId, Spass;
+            cout << "\n\t\t\tEnter the username you remember: ";
+            cin >> SuserId;
 
-                ifstream Studentcreds("students.txt",ios::app);
-                while(Studentcreds>>SId>>Spass)
+            ifstream Studentcreds("students.txt", ios::app);
+            while (Studentcreds >> SId >> Spass)
+            {
+                if (SId == SuserId)
                 {
-                    if(SId  == SuserId)
-                    {
-                        count = 1;
-                        break;
-                    }
+                    count = 1;
+                    break;
                 }
-                
-                Studentcreds.close();
-                
-                if(count == 1)
-                {
-                    cout<<"\n\n Your account is found! \n";
-                    cout<<"\n\n Your password is : "<<Spass;
-                    getch();
-                    main();
-                }
-                else{
-                    cout<<"\n\t Sorry! Your account is not found: \n";
-                    getch();
-                    main();
-                }
-                break;
             }
 
-            case 2:
+            Studentcreds.close();
+
+            if (count == 1)
             {
+                cout << "\n\n Your account is found! \n";
+                cout << "\n\n Your password is : " << Spass;
+                getch();
                 main();
             }
+            else
+            {
+                cout << "\n\t Sorry! Your account is not found: \n";
+                getch();
+                main();
+            }
+            break;
+        }
 
-            default:
-                cout<<"\t\t\t Wrong choice ! Please try again "<<endl;
+        case 2:
+        {
+            main();
+        }
+
+        default:
+            cout << "\t\t\t Wrong choice ! Please try again " << endl;
         }
     }
-
 };
 
-class Guard{
-    public:
+class Guard
+{
+public:
     void GuardPage()
     {
         system("cls");
@@ -366,7 +462,7 @@ class Guard{
     }
     void loginGuard()
     {
-        int t=0;
+        int t = 0;
         int cnt = 0;
         int c;
         string GuserID, Gpassword, Gid, Gpass;
@@ -397,29 +493,29 @@ class Guard{
 
         if (cnt)
         {
-            cout << "\t" << GuserID<< "\n\tYour LOGIN is successfull!";
+            cout << "\t" << GuserID << "\n\tYour LOGIN is successfull!";
             getch();
         }
         else
         {
             cout << "\n\t Account NOT FOUND\n\t Please enter correct Credentials\n";
-            cout<<  "\n\t| Type 1 to Try Again           |\n";
-            cout<<  "\t  | Type 2 to return to main menu |\n";
-            cout<<  "\t    Enter your details --> ";
+            cout << "\n\t| Type 1 to Try Again           |\n";
+            cout << "\t  | Type 2 to return to main menu |\n";
+            cout << "\t    Enter your details --> ";
             cin >> t;
         }
-        
-        switch(t){
-            case 1:
-                loginGuard();
-                break;
-            case 2:
-                GuardPage();
-                break;
-            case 3:
-                cout<<"  |Invalid number!!               |\n";
+
+        switch (t)
+        {
+        case 1:
+            loginGuard();
+            break;
+        case 2:
+            GuardPage();
+            break;
+        case 3:
+            cout << "  |Invalid number!!               |\n";
         }
-        
     }
     void registerGuard()
     {
@@ -438,7 +534,7 @@ class Guard{
         }
         ofstream guardcreds("guards.txt", ios::app);
         guardcreds << "\n"
-                    << Guserid << " " << Gpassword;
+                   << Guserid << " " << Gpassword;
         system("cls");
         cout << "\n\n\t\t Registration was successfull!! \n";
         guardcreds.close();
@@ -449,58 +545,58 @@ class Guard{
     {
         int option;
         system("cls");
-        cout<<"\t\t\tForgot password? Chill! We are here\n\n";
-        cout<<"| Press 1 to search your id by username |"<<endl;
-        cout<<"| Press 2 to go back to the main menu   |\n "<<endl;
-        cout<<"  Enter your choice -->";
+        cout << "\t\t\tForgot password? Chill! We are here\n\n";
+        cout << "| Press 1 to search your id by username |" << endl;
+        cout << "| Press 2 to go back to the main menu   |\n " << endl;
+        cout << "  Enter your choice -->";
         cin >> option;
 
-        switch(option)
+        switch (option)
         {
-            case 1:
-            {
-                int count = 0;
-                string GuserId,GId,Gpass;
-                cout<<"\n\t\t\tEnter the username you remember: ";
-                cin >> GuserId;
+        case 1:
+        {
+            int count = 0;
+            string GuserId, GId, Gpass;
+            cout << "\n\t\t\tEnter the username you remember: ";
+            cin >> GuserId;
 
-                ifstream guardcreds("guards.txt",ios::app);
-                while(guardcreds>>GId>>Gpass)
+            ifstream guardcreds("guards.txt", ios::app);
+            while (guardcreds >> GId >> Gpass)
+            {
+                if (GId == GuserId)
                 {
-                    if(GId  == GuserId)
-                    {
-                        count = 1;
-                        break;
-                    }
+                    count = 1;
+                    break;
                 }
-                
-                guardcreds.close();
-                
-                if(count == 1)
-                {
-                    cout<<"\n\n Your account is found! \n";
-                    cout<<"\n\n Your password is : "<<Gpass;
-                    getch();
-                    main();
-                }
-                else{
-                    cout<<"\n\t Sorry! Your account is not found: \n";
-                    getch();
-                    main();
-                }
-                break;
             }
 
-            case 2:
+            guardcreds.close();
+
+            if (count == 1)
             {
+                cout << "\n\n Your account is found! \n";
+                cout << "\n\n Your password is : " << Gpass;
+                getch();
                 main();
             }
+            else
+            {
+                cout << "\n\t Sorry! Your account is not found: \n";
+                getch();
+                main();
+            }
+            break;
+        }
 
-            default:
-                cout<<"\t\t\t Wrong choice ! Please try again "<<endl;
+        case 2:
+        {
+            main();
+        }
+
+        default:
+            cout << "\t\t\t Wrong choice ! Please try again " << endl;
         }
     }
-
 };
 
 int main()
