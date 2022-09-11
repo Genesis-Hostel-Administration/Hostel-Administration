@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 #include <conio.h>
 #include <cstdio>
+
+// #include <opencv2/opencv.hpp>
 using namespace std;
 
 int main();
@@ -80,19 +82,19 @@ public:
             cout << "\n\t| Type 2 to return to main menu |\n";
             cout << "\t    Enter your details --> ";
             cin >> t;
+            switch (t)
+            {
+            case 1:
+                loginRector();
+                break;
+            case 2:
+                firstpage();
+                break;
+            case 3:
+                cout << "  |Invalid number!!               |\n";
+            }
         }
         // cin >> t;
-        switch (t)
-        {
-        case 1:
-            loginRector();
-            break;
-        case 2:
-            firstpage();
-            break;
-        case 3:
-            cout << "  |Invalid number!!               |\n";
-        }
     }
 
     void registerRector()
@@ -181,14 +183,71 @@ public:
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t\t\t\t\t            WELCOME                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t| Press 1 to Check Payments Received |\n";
-        cout << "\t| Press 2 to PUT NOTICES             |\n";
-        cout << "\t| Press 3 to CHECK GRIEVANCES        |\n\n";
+        cout << "\t| Press 1 to CHECK HOSTEL APPLICATIONS |\n";
+        cout << "\t| Press 2 to PUT NOTICES               |\n";
+        cout << "\t| Press 3 to CHECK GRIEVANCES          |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
         switch (r)
         {
+        case 1:
+        {
+            ifstream hel("Applications.txt", ios::app);
+            string li;
+
+            while (getline(hel, li))
+            {
+                cout << li << endl;
+            }
+            cout << "| Press 1 to Approve the Applications |\n";
+            cout << "| Press 2 to Keep them pending        |\n\n";
+            int r;
+            cin >> r;
+            switch (r)
+            {
+            case 1:
+            {
+                ofstream p("Applications.txt", ios::trunc);
+                p.close();
+                cout << "Applications approved successfully!!!!\nCreate a notice for the students-->\n\n";
+                string date;
+                string notice;
+                cout << "Enter the date of Notice : ";
+                cin >> date;
+                cout << "Enter the Notice : " << endl;
+                char c;
+                c = getch();
+                while (c != 13)
+                {
+                    if (c == 8)
+                    {
+                        notice.pop_back();
+                        c = getch();
+                        continue;
+                    }
+                    notice.push_back(c);
+                    cout << c;
+                    c = getch();
+                }
+
+                ofstream notices("Notices.txt", ios::app);
+                notices << "\tDate :" << date << " ;\n\tNotice: " << notice << "\n";
+
+                cout << "\nYour Notice is successfully submitted!";
+
+                rectorAfterLogin();
+            }
+            case 2:
+            {
+                rectorAfterLogin();
+            }
+            default:
+                cout << "Invalid Number!!\n";
+                cout << "Heading to previous page!!\n\n";
+                rectorAfterLogin();
+            }
+        }
         case 2:
         {
             string date;
@@ -313,7 +372,7 @@ public:
 
         if (cnt)
         {
-            cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!";
+            cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!\n";
             studentAfterlogin();
         }
         else
@@ -323,18 +382,17 @@ public:
             cout << "\n\t| Type 2 to return to main menu |\n";
             cout << "      Enter your details --> ";
             cin >> t;
-        }
-        cin >> t;
-        switch (t)
-        {
-        case 1:
-            loginStudent();
-            break;
-        case 2:
-            Studentpage();
-            break;
-        case 3:
-            cout << " |Invalid number!!               |\n";
+            switch (t)
+            {
+            case 1:
+                loginStudent();
+                break;
+            case 2:
+                Studentpage();
+                break;
+            case 3:
+                cout << " |Invalid number!!               |\n";
+            }
         }
     }
     void registerStudent()
@@ -414,23 +472,53 @@ public:
         }
 
         default:
-            cout << "\t\t\t Wrong choice ! Please try again " << endl;
+            cout << "\t\t\t Wrong choice ! Please try again \n"
+                 << endl;
         }
     }
     void studentAfterlogin()
     {
         int r;
+
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t| Press 1 to EDIT PROFILE          |\n";
+        cout << "\t| Press 1 to APPLY FOR HOSTEL      |\n";
         cout << "\t| Press 2 to SEE NOTICES           |\n";
-        cout << "\t| Press 3 to PUT GRIEVANCES        |\n\n";
+        cout << "\t| Press 3 to PUT GRIEVANCES        |\n";
+        cout << "\t| Press 4 to PAY FEES              |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
         switch (r)
         {
+        case 1:
+        {
+            string FName, Lname, FatName, Address, city, IdProof;
+            long long int Income;
+            cout << "To Apply for the Hostel fill the following details :\n\n";
+            cout << "First Name          : ";
+            cin >> FName;
+            cout << "Last Name           : ";
+            cin >> Lname;
+            cout << "Father's name       : ";
+            cin >> FatName;
+            cout << "Residential Address : ";
+            cin >> Address;
+            cout << "Aadhar/Pan card No. : ";
+            cin >> IdProof;
+            cout << "Enter family Income : ";
+            cin >> Income;
+            ofstream apply("Applications.txt", ios::app);
+            apply << "\t\tFirst Name:" << FName << " Last name: " << Lname << " Fathers name: " << FatName << " Residential address: " << Address << " AAdhar/Pan No.: " << IdProof << " Income: " << Income << " Rs\n";
+
+            apply.close();
+            cout << "Your form has been submitted!!!!!\nKeep checking the Notices section for the approval of your application form.\n\nThank You!!!\n";
+            
+            studentAfterlogin();
+            break;
+        }
+
         case 2:
         {
             ifstream noti;
@@ -439,16 +527,19 @@ public:
             noti.open("Notices.txt");
             while (getline(noti, line))
             {
-                cout << line << endl
+                cout << line << endl   
                      << endl;
             }
+
             break;
         }
         case 3:
         {
-            string hostel_no;
+            string hostel_no, usern;
             int room_no;
             string grievance;
+            cout << "Enter your username : ";
+            cin >> usern;
             cout << "Enter your Hostel Dormentory : ";
             cin >> hostel_no;
             cout << "Enter your Room No. : ";
@@ -472,17 +563,22 @@ public:
             }
 
             ofstream grievances("Grievances.txt", ios::app);
-            grievances << "\t\tHostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
+            grievances << "\t\tUser Id: " << usern << "\t\tHostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
 
             cout << "\nYour Grievance is successfully submitted!";
 
-            cout << "Enter 1 to go back --> ";
-            int q;
-            cin >> q;
-            if (q)
-            {
-                studentAfterlogin();
-            }
+            studentAfterlogin();
+        }
+        case 4:
+        {
+            string transactionId;
+            cout << "Pay the fees on the below mentioned upi ID -->\n";
+            cout << "1234567890@ybl\n\n";
+
+            cout<<"Enter the transaction ID: ";
+            cin >> transactionId;
+
+            cout<<"WE will let you know once the payment is confirmed from our side\n\nThank You\n";
         }
         }
     }
@@ -562,18 +658,17 @@ public:
             cout << "\t  | Type 2 to return to main menu |\n";
             cout << "\t    Enter your details --> ";
             cin >> t;
-        }
-
-        switch (t)
-        {
-        case 1:
-            loginGuard();
-            break;
-        case 2:
-            GuardPage();
-            break;
-        case 3:
-            cout << "  |Invalid number!!               |\n";
+            switch (t)
+            {
+            case 1:
+                loginGuard();
+                break;
+            case 2:
+                GuardPage();
+                break;
+            case 3:
+                cout << "  |Invalid number!!               |\n";
+            }
         }
     }
     void registerGuard()

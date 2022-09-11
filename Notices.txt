@@ -3,3 +3,7 @@
 	Notice: Quality of Mess is improved.
 	Date :11/09/2022 ;
 	Notice: Mirroof the bathrooms are fixed
+	Date :cd ;
+	
+	Date : ;
+	Notice: cd "d:\Genesis Project\Hostel-Administration\Hostel-Administration\" ; if ($?) { g++ main.cpp -o main } ; if ($?) { .\main }
