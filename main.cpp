@@ -185,7 +185,8 @@ public:
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 to CHECK HOSTEL APPLICATIONS |\n";
         cout << "\t| Press 2 to PUT NOTICES               |\n";
-        cout << "\t| Press 3 to CHECK GRIEVANCES          |\n\n";
+        cout << "\t| Press 3 to CHECK GRIEVANCES          |\n";
+        cout << "\t| Press -1 to LOGOUT               |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -236,7 +237,13 @@ public:
 
                 cout << "\nYour Notice is successfully submitted!";
 
-                rectorAfterLogin();
+                cout << "Press -1 to go back : ";
+                int q;
+                cin >> q;
+                if (q == -1)
+                {
+                    rectorAfterLogin();
+                }
             }
             case 2:
             {
@@ -273,8 +280,14 @@ public:
             ofstream notices("Notices.txt", ios::app);
             notices << "\tDate :" << date << " ;\n\tNotice: " << notice << "\n";
 
-            cout << "\nYour Notice is successfully submitted!";
-            rectorAfterLogin();
+            cout << "\nYour Notice is successfully submitted!\n";
+            cout << "Press -1 to go back : ";
+            int q;
+            cin >> q;
+            if (q == -1)
+            {
+                rectorAfterLogin();
+            }
         }
         case 3:
         {
@@ -300,9 +313,13 @@ public:
                 break;
             }
             case 2:
-                break;
+                rectorAfterLogin();
             }
-            rectorAfterLogin();
+        }
+        case -1:
+        {
+            cout << "\n\tYou Successfully logged out from your account!\nThankyou, have a nice day!\n";
+            firstpage();
         }
         }
     }
@@ -481,12 +498,13 @@ public:
         int r;
 
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
+        cout << "\t\t\t\t\t            WELCOME                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 to APPLY FOR HOSTEL      |\n";
         cout << "\t| Press 2 to SEE NOTICES           |\n";
         cout << "\t| Press 3 to PUT GRIEVANCES        |\n";
-        cout << "\t| Press 4 to PAY FEES              |\n\n";
+        cout << "\t| Press 4 to PAY FEES              |\n";
+        cout << "\t| Press -1 to LOGOUT               |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -510,13 +528,18 @@ public:
             cout << "Enter family Income : ";
             cin >> Income;
             ofstream apply("Applications.txt", ios::app);
-            apply << "\t\tFirst Name:" << FName << " Last name: " << Lname << " Fathers name: " << FatName << " Residential address: " << Address << " AAdhar/Pan No.: " << IdProof << " Income: " << Income << " Rs\n";
+            apply << "\t\tFirst Name:" << FName << "\t Last name: " << Lname << "\t Fathers name: " << FatName << "\t Residential address: " << Address << "\t AAdhar/Pan No.: " << IdProof << "\t Income: " << Income << " Rs\n";
 
             apply.close();
             cout << "Your form has been submitted!!!!!\nKeep checking the Notices section for the approval of your application form.\n\nThank You!!!\n";
-            
-            studentAfterlogin();
-            break;
+
+            cout << "Press -1 to go back : ";
+            int q;
+            cin >> q;
+            if (q == -1)
+            {
+                studentAfterlogin();
+            }
         }
 
         case 2:
@@ -527,11 +550,16 @@ public:
             noti.open("Notices.txt");
             while (getline(noti, line))
             {
-                cout << line << endl   
+                cout << line << endl
                      << endl;
             }
-
-            break;
+            cout << "Press -1 to go back : ";
+            int q;
+            cin >> q;
+            if (q == -1)
+            {
+                studentAfterlogin();
+            }
         }
         case 3:
         {
@@ -565,9 +593,15 @@ public:
             ofstream grievances("Grievances.txt", ios::app);
             grievances << "\t\tUser Id: " << usern << "\t\tHostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
 
-            cout << "\nYour Grievance is successfully submitted!";
+            cout << "\nYour Grievance is successfully submitted!\n";
 
-            studentAfterlogin();
+            cout << "Press -1 to go back : ";
+            int q;
+            cin >> q;
+            if (q == -1)
+            {
+                studentAfterlogin();
+            }
         }
         case 4:
         {
@@ -575,10 +609,15 @@ public:
             cout << "Pay the fees on the below mentioned upi ID -->\n";
             cout << "1234567890@ybl\n\n";
 
-            cout<<"Enter the transaction ID: ";
+            cout << "Enter the transaction ID: ";
             cin >> transactionId;
 
-            cout<<"WE will let you know once the payment is confirmed from our side\n\nThank You\n";
+            cout << "We will let you know once the payment is confirmed from our side\n\nThank You\n";
+        }
+        case -1:
+        {
+            cout << "\n\tYou Successfully logged out from your account!\nThankyou, have a nice day!\n";
+            Studentpage();
         }
         }
     }
@@ -760,9 +799,10 @@ int main()
     cout << "\t\t\t--------------------------------------------------------------------\n\n";
     cout << "\t\t\t\t\t                MENU                                        \n\n";
     cout << "\t\t\t--------------------------------------------------------------------\n\n";
-    cout << "\t | Press 1 for RECTOR LOGIN   |\n";
-    cout << "\t | Press 2 for GUARD LOGIN    |\n";
-    cout << "\t | Press 3 for STUDENT LOGIN  |\n\n";
+    cout << "\t | Press 1 for RECTOR LOGIN           |\n";
+    cout << "\t | Press 2 for GUARD LOGIN            |\n";
+    cout << "\t | Press 3 for STUDENT LOGIN          |\n";
+    cout << "\t | Press -1 to CLOSE THE APPLICATION  |\n\n";
     cout << "Enter your choice --> ";
     cin >> c;
 
@@ -783,7 +823,7 @@ int main()
         S.Studentpage();
         break;
 
-    default:
+    case -1:
         break;
     }
     return 0;

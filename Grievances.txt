@@ -5,3 +5,5 @@
 
 		User Id :a ; Hostel no: D7 ; Room no. : 19 ; Grievance: Lights of my room are not working properly.
 		User Id: Datta		Hostel no: 3 ; Room no. : 45 ; Grievance:  a attach
+		User Id: Datta		Hostel no: 3 ; Room no. : 3 ; Grievance: 3
+		User Id: 3		Hostel no: 3 ; Room no. : 3 ; Grievance: 3
