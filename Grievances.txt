@@ -1,5 +1,6 @@
-   Hostel Dorm.  Room No.            Grievances
+            Hostel Dorm.  		Room No.                Grievances
 		a			0			Improve the mess Quality.
 
 		D7			19			Tap of the bathroom is not working
 
+		User Id :a ; Hostel no: D7 ; Room no. : 19 ; Grievance: Lights of my room are not working properly.

@@ -17,7 +17,8 @@ public:
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 for RECTOR LOGIN        |\n";
         cout << "\t| Press 2 for RECTOR REGISTRATION |\n";
-        cout << "\t| Press 3 for FORGET PASSWORD     |\n\n";
+        cout << "\t| Press 3 for FORGET PASSWORD     |\n";
+        cout << "\t| Press -1 to GO BACK             |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -29,9 +30,11 @@ public:
         case 2:
             registerRector();
             break;
-        default:
+        case 3:
             forgot();
             break;
+        case -1:
+            main();
         }
     }
     void loginRector()
@@ -67,7 +70,7 @@ public:
 
         if (cnt)
         {
-            cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!";
+            cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!\n";
             rectorAfterLogin();
         }
         else
@@ -78,7 +81,7 @@ public:
             cout << "\t    Enter your details --> ";
             cin >> t;
         }
-        cin >> t;
+        // cin >> t;
         switch (t)
         {
         case 1:
@@ -174,49 +177,77 @@ public:
     }
     void rectorAfterLogin()
     {
-        int r,s;
+        int r, s;
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t\t\t\t\t            RECTOR MENU                                        \n\n";
+        cout << "\t\t\t\t\t            WELCOME                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 to Check Payments Received |\n";
-        cout << "\t| Press 2 to HOSTEL APPLICATIONS     |\n";
+        cout << "\t| Press 2 to PUT NOTICES             |\n";
         cout << "\t| Press 3 to CHECK GRIEVANCES        |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
         switch (r)
         {
+        case 2:
+        {
+            string date;
+            string notice;
+            cout << "Enter the date of Notice : ";
+            cin >> date;
+            cout << "Enter the Notice : " << endl;
+            char c;
+            c = getch();
+            while (c != 13)
+            {
+                if (c == 8)
+                {
+                    notice.pop_back();
+                    c = getch();
+                    continue;
+                }
+                notice.push_back(c);
+                cout << c;
+                c = getch();
+            }
+
+            ofstream notices("Notices.txt", ios::app);
+            notices << "\tDate :" << date << " ;\n\tNotice: " << notice << "\n";
+
+            cout << "\nYour Notice is successfully submitted!";
+            rectorAfterLogin();
+        }
         case 3:
+        {
             ifstream grie;
             string line;
 
             grie.open("Grievances.txt");
-            while(getline(grie,line)){
-                cout<<line<<endl<<endl;;
+            while (getline(grie, line))
+            {
+                cout << line << endl
+                     << endl;
             }
             cout << "\t| Press 1 If Grievances are solved  |\n";
             cout << "\t| Press 2 If Not solved             |\n";
-            cin >> s;
             fstream fil;
-            switch(s)
+            cin >> s;
+            switch (s)
             {
-                case 1:
-                
-                fil.open("Grievances.txt",ios::trunc);
+            case 1:
+            {
+                fil.open("Grievances.txt", ios::trunc);
                 fil.close();
                 break;
-
-                case 2:
+            }
+            case 2:
                 break;
             }
-
-
-
-        break;
+            rectorAfterLogin();
+        }
         }
     }
 };
-
 class student
 {
 public:
@@ -229,7 +260,8 @@ public:
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 for STUDENT LOGIN        |\n";
         cout << "\t| Press 2 for STUDENT REGISTRATION |\n";
-        cout << "\t| Press 3 for FORGOT  PASSWORD     |\n\n";
+        cout << "\t| Press 3 for FORGOT  PASSWORD     |\n";
+        cout << "\t| Press -1 to GO BACK              |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -241,14 +273,15 @@ public:
         case 2:
             registerStudent();
             break;
-        default:
+        case 3:
             forgot();
             break;
+        case -1:
+            main();
         }
     }
     void loginStudent()
     {
-        void Studentafterlogin();
         int t = 0;
         int cnt = 0;
         int c;
@@ -281,52 +314,7 @@ public:
         if (cnt)
         {
             cout << "\t" << userIDR << "\n\tYour LOGIN is successfull!";
-            // Studentafterlogin();
-            int r;
-            cout << "\t\t\t--------------------------------------------------------------------\n\n";
-            cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
-            cout << "\t\t\t--------------------------------------------------------------------\n\n";
-            cout << "\t| Press 1 to EDIT PROFILE          |\n";
-            cout << "\t| Press 2 to SEE NOTICES           |\n";
-            cout << "\t| Press 3 to PUT GRIEVANCES        |\n\n";
-            cout << "Enter your choice --> ";
-            cin >> r;
-
-            switch (r)
-            {
-            case 3:
-            {
-                string hostel_no;
-                int room_no;
-                string grievance;
-                cout << "Enter your Hostel Dormentory : ";
-                cin >> hostel_no;
-                cout << "Enter your Room No. : ";
-                cin >> room_no;
-
-                cout << "Enter your Grievance/Complaint : " << endl;
-                // getline(cin,grievance);
-                char c;
-                c = getch();
-                while (c != 13)
-                {
-                    if (c == 8)
-                    {
-                        grievance.pop_back();
-                        c = getch();
-                        continue;
-                    }
-                    grievance.push_back(c);
-                    cout << c;
-                    c = getch();
-                }
-
-                ofstream grievances("Grievances.txt", ios::app);
-                grievances << "\t\tUser Id :" << userIDR << " ; Hostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
-
-                cout << "\nYour Grievance is successfully submitted!";
-            }
-            }
+            studentAfterlogin();
         }
         else
         {
@@ -429,58 +417,76 @@ public:
             cout << "\t\t\t Wrong choice ! Please try again " << endl;
         }
     }
-
-    void Studentafterlogin()
+    void studentAfterlogin()
     {
-        // system("cls");
-        // int r;
-        // cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        // cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
-        // cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        // cout << "\t| Press 1 to EDIT PROFILE          |\n";
-        // cout << "\t| Press 2 to SEE NOTICES           |\n";
-        // cout << "\t| Press 3 to PUT GRIEVANCES        |\n\n";
-        // cout << "Enter your choice --> ";
-        // cin >> r;
+        int r;
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t| Press 1 to EDIT PROFILE          |\n";
+        cout << "\t| Press 2 to SEE NOTICES           |\n";
+        cout << "\t| Press 3 to PUT GRIEVANCES        |\n\n";
+        cout << "Enter your choice --> ";
+        cin >> r;
 
-        // switch (r)
-        // {
-        // case 3:
-        // {
-        //     string hostel_no;
-        //     int room_no;
-        //     string grievance;
-        //     cout << "Enter your Hostel Dormentory : ";
-        //     cin >> hostel_no;
-        //     cout << "Enter your Room No. : ";
-        //     cin >> room_no;
+        switch (r)
+        {
+        case 2:
+        {
+            ifstream noti;
+            string line;
 
-        //     cout << "Enter your Grievance/Complaint : " << endl;
-        //     // getline(cin,grievance);
-        //     char c;
-        //     c = getch();
-        //     while (c != 13)
-        //     {
-        //         if (c == 8)
-        //         {
-        //             grievance.pop_back();
-        //             c = getch();
-        //             continue;
-        //         }
-        //         grievance.push_back(c);
-        //         cout << c;
-        //         c = getch();
-        //     }
+            noti.open("Notices.txt");
+            while (getline(noti, line))
+            {
+                cout << line << endl
+                     << endl;
+            }
+            break;
+        }
+        case 3:
+        {
+            string hostel_no;
+            int room_no;
+            string grievance;
+            cout << "Enter your Hostel Dormentory : ";
+            cin >> hostel_no;
+            cout << "Enter your Room No. : ";
+            cin >> room_no;
 
-        //     ofstream grievances("Grievances.txt", ios::app);
-        //     grievances <<"\t\t"<<userIDR<<"\t\t" <<hostel_no << "\t\t\t" << room_no << "\t\t\t" << grievance << "\n\n";
+            cout << "Enter your Grievance/Complaint : " << endl;
+            // getline(cin,grievance);
+            char c;
+            c = getch();
+            while (c != 13)
+            {
+                if (c == 8)
+                {
+                    grievance.pop_back();
+                    c = getch();
+                    continue;
+                }
+                grievance.push_back(c);
+                cout << c;
+                c = getch();
+            }
 
-        //     cout << "\nYour Grievance is successfully submitted!";
-        // }
-        // }
+            ofstream grievances("Grievances.txt", ios::app);
+            grievances << "\t\tHostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
+
+            cout << "\nYour Grievance is successfully submitted!";
+
+            cout << "Enter 1 to go back --> ";
+            int q;
+            cin >> q;
+            if (q)
+            {
+                studentAfterlogin();
+            }
+        }
+        }
     }
 };
-
 class Guard
 {
 public:
@@ -493,7 +499,8 @@ public:
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 for GUARD LOGIN        |\n";
         cout << "\t| Press 2 for GUARD REGISTRATION |\n";
-        cout << "\t| Press 3 for FORGOT  PASSWORD   |\n\n";
+        cout << "\t| Press 3 for FORGOT  PASSWORD   |\n";
+        cout << "\t| Press -1 to GO BACK            |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -505,9 +512,11 @@ public:
         case 2:
             registerGuard();
             break;
-        default:
+        case 3:
             forgot();
             break;
+        case -1:
+            main();
         }
     }
     void loginGuard()
@@ -656,9 +665,9 @@ int main()
     cout << "\t\t\t--------------------------------------------------------------------\n\n";
     cout << "\t\t\t\t\t                MENU                                        \n\n";
     cout << "\t\t\t--------------------------------------------------------------------\n\n";
-    cout << "\t Press 1 for RECTOR LOGIN\n";
-    cout << "\t Press 2 for GUARD LOGIN\n";
-    cout << "\t Press 3 for STUDENT LOGIN\n\n";
+    cout << "\t | Press 1 for RECTOR LOGIN   |\n";
+    cout << "\t | Press 2 for GUARD LOGIN    |\n";
+    cout << "\t | Press 3 for STUDENT LOGIN  |\n\n";
     cout << "Enter your choice --> ";
     cin >> c;
 
@@ -672,10 +681,12 @@ int main()
     case 2:
         Guard G;
         G.GuardPage();
+        break;
 
     case 3:
         student S;
         S.Studentpage();
+        break;
 
     default:
         break;

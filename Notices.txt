@@ -1,0 +1,5 @@
+		Date :10 ; Notice: Collect your Hostel IDs from the rector office.
+	Date :10/09/2022 ;
+	Notice: Quality of Mess is improved.
+	Date :11/09/2022 ;
+	Notice: Mirroof the bathrooms are fixed
