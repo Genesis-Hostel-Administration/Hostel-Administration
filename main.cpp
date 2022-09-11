@@ -630,7 +630,7 @@ public:
         system("cls");
         int r;
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t\t\t\t\t            STUDENT MENU                                        \n\n";
+        cout << "\t\t\t\t\t            GUARD MENU                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 for GUARD LOGIN        |\n";
         cout << "\t| Press 2 for GUARD REGISTRATION |\n";
@@ -688,7 +688,7 @@ public:
         if (cnt)
         {
             cout << "\t" << GuserID << "\n\tYour LOGIN is successfull!";
-            getch();
+            guardAfterLogin();
         }
         else
         {
@@ -710,6 +710,89 @@ public:
             }
         }
     }
+
+    void guardAfterLogin()
+    {
+        system("cls");
+        int r;
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t\t\t\t\t            GUARD MENU                                        \n\n";
+        cout << "\t\t\t--------------------------------------------------------------------\n\n";
+        cout << "\t| Press 1 to CHECK IN/OUT       |\n";
+        cout << "\t| Press 2 to DISPLAY STATUS     |\n";
+        cout << "\t| Press -1 to GO BACK           |\n\n";
+        cout << "Enter your choice --> ";
+        cin >> r;
+
+        string usName, cindate, coutdate;
+        string cInTime, cOutTime;
+        int z;
+        string username;
+
+        if (r == 1)
+        {
+
+            cout << "Enter Username : ";
+            cin >> usName;
+            cout << "Press 1 to enter CheckIn time  : \n";
+            cout << "Press 2 to enter Checkout time : \n\n";
+            cout << "Enter your choice --> ";
+            cin >> z;
+
+            if (z == 1)
+            {
+                ofstream chkIn("chkinT.txt", ios::app);
+                cout << "Check-In Date : ";
+                cin >> cindate;
+                cout << "Check-In time : ";
+                cin >> cInTime;
+
+                chkIn << usName << " " << cindate << " " << cInTime << endl;
+                chkIn.close();
+                guardAfterLogin();
+            }
+            if (z == 2)
+            {
+                ofstream chkOut("chkoutT.txt", ios::app);
+                cout << "Check-Out Date : ";
+                cin >> coutdate;
+                cout << "Check-Out time : ";
+                cin >> cOutTime;
+
+                chkOut << usName << " " << coutdate << " " << cOutTime << endl;
+                chkOut.close();
+                guardAfterLogin();
+            }
+        }
+        else if (r == 2)
+        {
+            cout << "Enter the username of the student : ";
+            cin >> username;
+
+            ifstream chkcreds("chkinT.txt");
+            while (chkcreds >> usName >> cindate >> cInTime)
+            {
+                if (username == usName)
+                {
+                    cout << "Last Checked In : Date-->" << cindate << " Time-->" << cInTime << endl;
+                }
+            }
+            chkcreds.close();
+
+            ifstream chkcred("chkoutT.txt");
+            while (chkcred >> usName >> coutdate >> cOutTime)
+            {
+                if (username == usName)
+                {
+                    cout << "Last Checked OUT : Date-->" << coutdate << " Time-->" << cOutTime << endl;
+                }
+            }
+            chkcred.close();
+            getch();
+            guardAfterLogin();
+        }
+    }
+
     void registerGuard()
     {
         string Guserid, Gpassword, Gid, Gpass;
@@ -731,7 +814,7 @@ public:
         system("cls");
         cout << "\n\n\t\t Registration was successfull!! \n";
         guardcreds.close();
-        GuardPage();
+        // GuardPage();
     }
 
     void forgot()
@@ -828,3 +911,5 @@ int main()
     }
     return 0;
 }
+
+//The End
