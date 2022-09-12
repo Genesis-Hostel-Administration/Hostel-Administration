@@ -186,7 +186,7 @@ public:
         cout << "\t| Press 1 to CHECK HOSTEL APPLICATIONS |\n";
         cout << "\t| Press 2 to PUT NOTICES               |\n";
         cout << "\t| Press 3 to CHECK GRIEVANCES          |\n";
-        cout << "\t| Press -1 to LOGOUT               |\n\n";
+        cout << "\t| Press -1 to LOGOUT                   |\n\n";
         cout << "Enter your choice --> ";
         cin >> r;
 
@@ -235,23 +235,26 @@ public:
                 ofstream notices("Notices.txt", ios::app);
                 notices << "\tDate :" << date << " ;\n\tNotice: " << notice << "\n";
 
-                cout << "\nYour Notice is successfully submitted!";
-
+                cout << "\nYour Notice is successfully submitted!\n";
+                notices.close();
                 cout << "Press -1 to go back : ";
                 int q;
                 cin >> q;
                 if (q == -1)
                 {
+                    system("cls");
                     rectorAfterLogin();
                 }
             }
             case 2:
             {
+                system("cls");
                 rectorAfterLogin();
             }
             default:
                 cout << "Invalid Number!!\n";
                 cout << "Heading to previous page!!\n\n";
+                system("cls");
                 rectorAfterLogin();
             }
         }
@@ -281,11 +284,14 @@ public:
             notices << "\tDate :" << date << " ;\n\tNotice: " << notice << "\n";
 
             cout << "\nYour Notice is successfully submitted!\n";
+            notices.close();
+
             cout << "Press -1 to go back : ";
             int q;
             cin >> q;
             if (q == -1)
             {
+                system("cls");
                 rectorAfterLogin();
             }
         }
@@ -310,9 +316,17 @@ public:
             {
                 fil.open("Grievances.txt", ios::trunc);
                 fil.close();
-                break;
+                cout << "Press -1 to go back : ";
+                int q;
+                cin >> q;
+                if (q == -1)
+                {
+                    system("cls");
+                    rectorAfterLogin();
+                }
             }
             case 2:
+                system("cls");
                 rectorAfterLogin();
             }
         }
@@ -528,7 +542,7 @@ public:
             cout << "Enter family Income : ";
             cin >> Income;
             ofstream apply("Applications.txt", ios::app);
-            apply << "\t\tFirst Name:" << FName << "\t Last name: " << Lname << "\t Fathers name: " << FatName << "\t Residential address: " << Address << "\t AAdhar/Pan No.: " << IdProof << "\t Income: " << Income << " Rs\n";
+            apply << "\nFirst Name:" << FName << "\t Last name: " << Lname << "\t Fathers name: " << FatName << "\t Residential address: " << Address << "\t AAdhar/Pan No.: " << IdProof << "\t Income: " << Income << " Rs\n";
 
             apply.close();
             cout << "Your form has been submitted!!!!!\nKeep checking the Notices section for the approval of your application form.\n\nThank You!!!\n";
@@ -538,6 +552,7 @@ public:
             cin >> q;
             if (q == -1)
             {
+                system("cls");
                 studentAfterlogin();
             }
         }
@@ -558,6 +573,7 @@ public:
             cin >> q;
             if (q == -1)
             {
+                system("cls");
                 studentAfterlogin();
             }
         }
@@ -591,15 +607,16 @@ public:
             }
 
             ofstream grievances("Grievances.txt", ios::app);
-            grievances << "\t\tUser Id: " << usern << "\t\tHostel no: " << hostel_no << " ; Room no. : " << room_no << " ; Grievance: " << grievance << "\n";
+            grievances << "\t\nUser Id: " << usern << "\t\nHostel no: " << hostel_no << " ; \t\nRoom no. : " << room_no << " ; \t\nGrievance: " << grievance << "\n";
 
             cout << "\nYour Grievance is successfully submitted!\n";
-
+            grievances.close();
             cout << "Press -1 to go back : ";
             int q;
             cin >> q;
             if (q == -1)
             {
+                system("cls");
                 studentAfterlogin();
             }
         }
@@ -613,6 +630,14 @@ public:
             cin >> transactionId;
 
             cout << "We will let you know once the payment is confirmed from our side\n\nThank You\n";
+            cout << "Press -1 to go back : ";
+            int q;
+            cin >> q;
+            if (q == -1)
+            {
+                system("cls");
+                studentAfterlogin();
+            }
         }
         case -1:
         {
@@ -687,7 +712,7 @@ public:
 
         if (cnt)
         {
-            cout << "\t" << GuserID << "\n\tYour LOGIN is successfull!";
+            cout << "\t" << GuserID << "\n\tYour LOGIN is successfull!\n";
             guardAfterLogin();
         }
         else
@@ -716,7 +741,7 @@ public:
         system("cls");
         int r;
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
-        cout << "\t\t\t\t\t            GUARD MENU                                        \n\n";
+        cout << "\t\t\t\t\t              WELCOME                                        \n\n";
         cout << "\t\t\t--------------------------------------------------------------------\n\n";
         cout << "\t| Press 1 to CHECK IN/OUT       |\n";
         cout << "\t| Press 2 to DISPLAY STATUS     |\n";
@@ -791,6 +816,10 @@ public:
             getch();
             guardAfterLogin();
         }
+        else if (r == -1)
+        {
+            GuardPage();
+        }
     }
 
     void registerGuard()
@@ -815,6 +844,13 @@ public:
         cout << "\n\n\t\t Registration was successfull!! \n";
         guardcreds.close();
         // GuardPage();
+        cout << "Press -1 to login : ";
+        int p;
+        cin >> p;
+        if (p == -1)
+        {
+            loginGuard();
+        }
     }
 
     void forgot()
@@ -907,9 +943,9 @@ int main()
         break;
 
     case -1:
-        break;
+        exit;
     }
     return 0;
 }
 
-//The End
+// The End

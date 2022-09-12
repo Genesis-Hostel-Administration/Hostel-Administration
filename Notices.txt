@@ -1,11 +1,8 @@
-		Date :10 ; Notice: Collect your Hostel IDs from the rector office.
-	Date :10/09/2022 ;
-	Notice: Quality of Mess is improved.
-	Date :11/09/2022 ;
-	Notice: Mirroof the bathrooms are fixed
-	Date :cd ;
-	
+	Date :12/09/2022 ;
+	Notice: Applications are approved!
+	Date :12/09/2022 ;
+	Notice: Application of Datta gangji is approved!
 	Date : ;
-	Notice: cd "d:\Genesis Project\Hostel-Administration\Hostel-Administration\" ; if ($?) { g++ main.cpp -o main } ; if ($?) { .\main }
+	Notice: exit
 	Date : ;
-	Notice: cd "d:\Genesis Project\Hostel-Administration\Hostel-Administration\" ; if ($?) { g++ main.cpp -o main } ; if ($?) { .\main }
+	Notice: -1
